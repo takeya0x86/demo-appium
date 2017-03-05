@@ -1,3 +1,5 @@
+package com.example.android;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -13,7 +15,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class ApiDemosRealDeviceTest {
+public class ApiDemosEmulatorTest {
 
   private static final Path userDir = Paths.get(System.getProperty("user.dir"));
 
@@ -26,8 +28,9 @@ public class ApiDemosRealDeviceTest {
     DesiredCapabilities caps = new DesiredCapabilities();
 
     caps.setPlatform(Platform.ANDROID);
-    caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Android");
+    caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
     caps.setCapability(MobileCapabilityType.APP, aut.toAbsolutePath().toString());
+    caps.setCapability("avd", "avd");
     caps.setCapability("unicodeKeyboard", true);
     caps.setCapability("resetKeyboard", true);
 
