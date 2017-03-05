@@ -30,7 +30,7 @@ public class ApiDemosEmulatorTest {
     caps.setPlatform(Platform.ANDROID);
     caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
     caps.setCapability(MobileCapabilityType.APP, aut.toAbsolutePath().toString());
-    caps.setCapability("avd", "avd");
+    caps.setCapability("avd", "AVD_for_Nexus_6_by_Google");
     caps.setCapability("unicodeKeyboard", true);
     caps.setCapability("resetKeyboard", true);
 
