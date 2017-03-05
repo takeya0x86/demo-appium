@@ -5,3 +5,7 @@
 .gradle
 /build/
 !gradle-wrapper.jar
+
+# Idea
+.idea/
+out/
