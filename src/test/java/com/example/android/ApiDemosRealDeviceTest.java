@@ -5,6 +5,7 @@ import static org.junit.Assert.assertThat;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,14 +28,11 @@ public class ApiDemosRealDeviceTest {
   public void setUp() throws Exception {
     DesiredCapabilities caps = new DesiredCapabilities();
 
-    caps.setPlatform(Platform.ANDROID);
     caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Android");
+    caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
     caps.setCapability(MobileCapabilityType.APP, aut.toAbsolutePath().toString());
-    caps.setCapability("unicodeKeyboard", true);
-    caps.setCapability("resetKeyboard", true);
 
     driver = new AndroidDriver<>(caps);
-
   }
 
   @After

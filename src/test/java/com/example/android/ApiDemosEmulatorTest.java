@@ -5,6 +5,9 @@ import static org.junit.Assert.assertThat;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.GsmCallActions;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,15 +30,12 @@ public class ApiDemosEmulatorTest {
   public void setUp() throws Exception {
     DesiredCapabilities caps = new DesiredCapabilities();
 
-    caps.setPlatform(Platform.ANDROID);
     caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
+    caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
     caps.setCapability(MobileCapabilityType.APP, aut.toAbsolutePath().toString());
-    caps.setCapability("avd", "AVD_for_Nexus_6_by_Google");
-    caps.setCapability("unicodeKeyboard", true);
-    caps.setCapability("resetKeyboard", true);
+    caps.setCapability(AndroidMobileCapabilityType.AVD, "Pixel_API_28");
 
     driver = new AndroidDriver<>(caps);
-
   }
 
   @After
@@ -51,5 +51,16 @@ public class ApiDemosEmulatorTest {
     MobileElement title = bar.findElement(By.className("android.widget.TextView"));
 
     assertThat(title.getText(), is("API Demos"));
+  }
+
+  @Test
+  public void test02() throws Exception {
+
+    driver.closeApp();
+
+    driver.makeGsmCall("00012345678", GsmCallActions.CALL);
+    Thread.sleep(3000);
+    driver.makeGsmCall("00012345678", GsmCallActions.CANCEL);
+    driver.sendSMS("00012345678", "test message");
   }
 }
