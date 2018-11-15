@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThat;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.GsmCallActions;
+import io.appium.java_client.android.GsmSignalStrength;
+import io.appium.java_client.android.GsmVoiceState;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -61,6 +63,27 @@ public class ApiDemosEmulatorTest {
     driver.makeGsmCall("00012345678", GsmCallActions.CALL);
     Thread.sleep(3000);
     driver.makeGsmCall("00012345678", GsmCallActions.CANCEL);
+    Thread.sleep(3000);
+    driver.setGsmSignalStrength(GsmSignalStrength.NONE_OR_UNKNOWN);
+    Thread.sleep(3000);
+    driver.setGsmSignalStrength(GsmSignalStrength.GREAT);
+    Thread.sleep(3000);
     driver.sendSMS("00012345678", "test message");
+    Thread.sleep(3000);
+    driver.setGsmVoice(GsmVoiceState.HOME);
+    Thread.sleep(3000);
+  }
+
+  @Test
+  public void test03() throws Exception {
+
+    driver.closeApp();
+
+    driver.toggleWifi();
+    Thread.sleep(3000);
+    driver.toggleData();
+    Thread.sleep(3000);
+    driver.toggleAirplaneMode();
+    Thread.sleep(3000);
   }
 }
