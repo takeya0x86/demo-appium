@@ -3,6 +3,7 @@ package com.example.android;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.GsmCallActions;
@@ -11,10 +12,13 @@ import io.appium.java_client.android.GsmVoiceState;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.AutomationName;
 import io.appium.java_client.remote.MobileCapabilityType;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.apache.commons.codec.binary.Base64;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Platform;
@@ -35,7 +39,7 @@ public class ApiDemosEmulatorTest {
     caps.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Emulator");
     caps.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
     caps.setCapability(MobileCapabilityType.APP, aut.toAbsolutePath().toString());
-    caps.setCapability(AndroidMobileCapabilityType.AVD, "Pixel_API_28");
+    caps.setCapability(AndroidMobileCapabilityType.AVD, "Nexus_4_API_27");
 
     driver = new AndroidDriver<>(caps);
   }
@@ -47,6 +51,7 @@ public class ApiDemosEmulatorTest {
     }
   }
 
+  @Ignore
   @Test
   public void test01() {
     MobileElement bar = driver.findElement(By.id("android:id/action_bar"));
@@ -55,6 +60,15 @@ public class ApiDemosEmulatorTest {
     assertThat(title.getText(), is("API Demos"));
   }
 
+  @Test
+  public void testFindByImage() throws Exception {
+    Path image = Paths.get("src", "test", "resources", "graphics.png");
+    byte[] bytes = Files.readAllBytes(image);
+    String base64image = Base64.encodeBase64String(bytes);
+    driver.findElementByImage(base64image).click();
+  }
+
+  @Ignore
   @Test
   public void test02() throws Exception {
 
@@ -74,6 +88,7 @@ public class ApiDemosEmulatorTest {
     Thread.sleep(3000);
   }
 
+  @Ignore
   @Test
   public void test03() throws Exception {
 
